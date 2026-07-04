@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-multipart
+aiofiles
+
+pypdf
+
+chromadb
+
+google-genai
+
+python-dotenv
+
+pydantic-settings

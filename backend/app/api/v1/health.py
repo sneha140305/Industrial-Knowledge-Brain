@@ -1,10 +1,14 @@
 from fastapi import APIRouter
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/health",
+    tags=["Health"],
+)
 
 
-@router.get("/health")
-def health():
+@router.get("/")
+async def health():
     return {
-        "status": "Running"
+        "status": "Running",
+        "message": "Industrial Knowledge Brain API is healthy.",
     }

@@ -1,15 +1,31 @@
-def chunk_text(text, chunk_size=500, overlap=100):
+from typing import List
 
-    chunks = []
 
-    start = 0
+class ChunkService:
+    """
+    Splits long text into overlapping chunks.
+    """
 
-    while start < len(text):
+    def chunk_text(
+        self,
+        text: str,
+        chunk_size: int = 500,
+        overlap: int = 100,
+    ) -> List[str]:
 
-        end = start + chunk_size
+        chunks = []
 
-        chunks.append(text[start:end])
+        start = 0
 
-        start += chunk_size - overlap
+        while start < len(text):
 
-    return chunks
+            end = start + chunk_size
+
+            chunks.append(text[start:end])
+
+            start += chunk_size - overlap
+
+        return chunks
+
+
+chunk_service = ChunkService()

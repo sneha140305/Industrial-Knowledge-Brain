@@ -1,27 +1,17 @@
-from sentence_transformers import SentenceTransformer
-
-from google import genai
-from app.core.config import settings
-
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-def create_embeddings(chunks):
-
-    return model.encode(chunks).tolist()
-
-client = genai.Client(api_key=settings.GEMINI_API_KEY)
+from app.services.gemini_service import gemini_service
 
 
 class EmbeddingService:
+    """
+    Creates embeddings using Gemini.
+    """
 
-    def create_embedding(self, text: str):
+    def create_embedding(
+        self,
+        text: str,
+    ) -> list[float]:
 
-        response = client.models.embed_content(
-            model="text-embedding-004",
-            contents=text
-        )
-
-        return response.embeddings[0].values
+        return gemini_service.get_embedding(text)
 
 
 embedding_service = EmbeddingService()

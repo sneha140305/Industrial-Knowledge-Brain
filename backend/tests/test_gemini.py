@@ -1,8 +1,7 @@
-from app.services.gemini_service import client
+from app.services.gemini_service import gemini_service
 
-response = client.models.generate_content(
-    model="gemini-2.5-flash",
-    contents="Say hello."
+print(
+    gemini_service.generate_response(
+        "Say hello."
+    )
 )
-
-print(response.text)

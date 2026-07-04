@@ -1,14 +1,37 @@
+from pathlib import Path
+
 from pypdf import PdfReader
 
-def extract_text_from_pdf(pdf_path):
-    reader = PdfReader(pdf_path)
 
-    full_text = ""
+class PDFService:
+    """
+    Reads PDF documents.
+    """
 
-    for page in reader.pages:
-        text = page.extract_text()
+    def extract_text(
+        self,
+        pdf_path: str,
+    ) -> str:
 
-        if text:
-            full_text += text + "\n"
+        pdf_file = Path(pdf_path)
 
-    return full_text
+        if not pdf_file.exists():
+            raise FileNotFoundError(
+                f"{pdf_path} not found."
+            )
+
+        reader = PdfReader(pdf_file)
+
+        pages = []
+
+        for page in reader.pages:
+
+            text = page.extract_text()
+
+            if text:
+                pages.append(text)
+
+        return "\n".join(pages)
+
+
+pdf_service = PDFService()

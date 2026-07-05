@@ -20,6 +20,7 @@ class VectorStore:
         embedding: list[float],
         metadata: dict,
     ):
+
         self.collection.add(
             ids=[doc_id],
             documents=[chunk],
@@ -32,13 +33,11 @@ class VectorStore:
         embedding: list[float],
         n_results: int = 5,
     ):
+
         return self.collection.query(
             query_embeddings=[embedding],
             n_results=n_results,
         )
-
-    def delete_document(self, doc_id: str):
-        self.collection.delete(ids=[doc_id])
 
 
 vector_store = VectorStore()

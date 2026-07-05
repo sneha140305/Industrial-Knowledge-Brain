@@ -34,11 +34,23 @@ If the answer is not present in the context, reply:
 """
 
         answer = gemini_service.generate_response(prompt)
+        
+        formatted_sources = []
+
+        for source in metadatas:
+            formatted_sources.append(
+                {
+                     "document": source["filename"],
+                     "chunk": source["chunk"]
+                }
+        )
 
         return {
+            "success": True,
             "answer": answer,
-            "sources": metadatas
+            "sources": formatted_sources
         }
+       
 
 
 chat_service = ChatService()

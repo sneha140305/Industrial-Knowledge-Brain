@@ -36,7 +36,8 @@ async def upload_pdf(
     )
 
     return {
+        "success": True,
         "message": "Document indexed successfully.",
         **result,
-    }
+}
 

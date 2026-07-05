@@ -1,4 +1,7 @@
+from pydantic import BaseModel
 from fastapi import APIRouter
+
+from app.services.chat_service import chat_service
 
 router = APIRouter(
     prefix="/chat",
@@ -6,8 +9,10 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-async def chat_status():
-    return {
-        "message": "Chat API is under development"
-    }
+class ChatRequest(BaseModel):
+    question: str
+
+
+@router.post("/")
+async def chat(request: ChatRequest):
+    return chat_service.ask(request.question)

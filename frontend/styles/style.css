@@ -1,0 +1,103 @@
+/* ===========================
+   Global
+=========================== */
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+
+section[data-testid="stSidebar"] {
+    background: #111827;
+}
+
+section[data-testid="stSidebar"] * {
+    color: white;
+}
+
+/* ===========================
+   Metric Cards
+=========================== */
+
+div[data-testid="stMetric"] {
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.stButton button {
+
+    width: 100%;
+
+    border-radius: 12px;
+
+    height: 48px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.stButton button:hover {
+
+    transform: translateY(-2px);
+
+}
+
+/* ===========================
+   File Uploader
+=========================== */
+
+section[data-testid="stFileUploader"] {
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    padding: 10px;
+}
+
+/* ===========================
+   Chat Messages
+=========================== */
+
+div[data-testid="stChatMessage"] {
+
+    border-radius: 14px;
+
+    padding: 12px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+}
+
+/* ===========================
+   Notifications
+=========================== */
+
+div[data-baseweb="notification"] {
+
+    border-radius: 12px;
+
+}
+
+/* ===========================
+   Horizontal Line
+=========================== */
+
+hr {
+
+    margin-top: 1rem;
+
+    margin-bottom: 1rem;
+
+}

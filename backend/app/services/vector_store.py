@@ -41,6 +41,22 @@ class VectorStore:
                 "distances"
             ]
         )
+    
+    def delete_document(self, doc_id: str):
+        results = self.collection.get(
+            where={
+            "filename": filename
+            }
+        )
+        ids = results.get("ids", [])
 
+        if ids:
+           self.collection.delete(ids=ids)
 
+        return len(ids)
+    
+    def get_stats(self):
+        return{
+            "chunks": self.collection.count()
+        }
 vector_store = VectorStore()

@@ -27,17 +27,17 @@ class DocumentService:
         filename
       )
 
+      if not os.path.exists(file_path):
+        return None
+      
       deleted_chunks = vector_store.delete_document(filename)
+      os.remove(file_path)
 
-      if os.path.exists(file_path):
+      return {
+         "filename": filename,
+         "deleted_chunks": deleted_chunks
+    }
 
-        os.remove(file_path)
-
-        return {
-            "deleted_chunks": deleted_chunks
-        }
-
-      return None
     
     def get_dashboard_stats(self):
 
@@ -46,7 +46,7 @@ class DocumentService:
        return {
           "documents": len(documents),
           "chunks": vector_store.get_stats()["chunks"],
-          "backend": "Online"
+        "backend": "Online"
     }
 
 

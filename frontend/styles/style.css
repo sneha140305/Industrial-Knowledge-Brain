@@ -1,88 +1,156 @@
-/* ===========================
+/* ===========================================
    Global
-=========================== */
+=========================================== */
 
 .block-container {
-    padding-top: 2rem;
+    padding-top: 1.8rem;
     padding-bottom: 2rem;
+    max-width: 1500px;
 }
 
-/* ===========================
+/* ===========================================
    Sidebar
-=========================== */
+=========================================== */
 
 section[data-testid="stSidebar"] {
     background: #111827;
+    border-right: 1px solid #253047;
 }
 
 section[data-testid="stSidebar"] * {
     color: white;
 }
 
-/* ===========================
-   Metric Cards
-=========================== */
+/* ===========================================
+   Headers
+=========================================== */
 
-div[data-testid="stMetric"] {
-    border-radius: 16px;
-    padding: 18px;
-    border: 1px solid rgba(255,255,255,0.08);
-    background-color: rgba(255,255,255,0.05);
+h1 {
+    font-weight: 700;
 }
 
-/* ===========================
-   Buttons
-=========================== */
+h2 {
+    font-weight: 650;
+}
 
-.stButton button {
+h3 {
+    font-weight: 600;
+}
+
+/* ===========================================
+   Cards
+=========================================== */
+
+div[data-testid="stVerticalBlock"] > div {
+    border-radius: 18px;
+}
+
+div[data-testid="stMetric"] {
+    background: #1E293B;
+    border: 1px solid #2B364D;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0px 5px 18px rgba(0,0,0,0.20);
+}
+
+/* Container Cards */
+
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 18px !important;
+    border: 1px solid #2E3A52 !important;
+    background: #182234;
+    padding: 15px;
+}
+
+/* ===========================================
+   Buttons
+=========================================== */
+
+.stButton > button {
 
     width: 100%;
+    height: 48px;
 
     border-radius: 12px;
 
-    height: 48px;
+    border: 1px solid #3B82F6;
+
+    background: #2563EB;
+
+    color: white;
 
     font-weight: 600;
 
-    transition: 0.3s;
+    transition: all .25s ease;
 }
 
-.stButton button:hover {
+.stButton > button:hover {
+
+    background: #1D4ED8;
 
     transform: translateY(-2px);
 
+    box-shadow: 0px 5px 18px rgba(59,130,246,.35);
+
 }
 
-/* ===========================
-   File Uploader
-=========================== */
+/* ===========================================
+   Inputs
+=========================================== */
 
-section[data-testid="stFileUploader"] {
+.stTextInput input {
 
-    border-radius: 14px;
+    border-radius: 12px;
 
-    border: 1px solid rgba(255,255,255,.15);
-
-    padding: 10px;
 }
 
-/* ===========================
+textarea {
+
+    border-radius: 12px !important;
+
+}
+
+/* ===========================================
    Chat Messages
-=========================== */
+=========================================== */
 
 div[data-testid="stChatMessage"] {
 
-    border-radius: 14px;
+    background: #182234;
 
-    padding: 12px;
+    border-radius: 16px;
 
-    border: 1px solid rgba(255,255,255,.08);
+    padding: 14px;
+
+    border: 1px solid #2B364D;
+
+    margin-bottom: 12px;
 
 }
 
-/* ===========================
+/* ===========================================
+   File Uploader
+=========================================== */
+
+section[data-testid="stFileUploader"] {
+
+    border-radius: 15px;
+
+}
+
+/* ===========================================
+   Progress Bar
+=========================================== */
+
+.stProgress {
+
+    height: 8px;
+
+}
+
+/* ===========================================
    Notifications
-=========================== */
+=========================================== */
 
 div[data-baseweb="notification"] {
 
@@ -90,14 +158,113 @@ div[data-baseweb="notification"] {
 
 }
 
-/* ===========================
-   Horizontal Line
-=========================== */
+/* ===========================================
+   Divider
+=========================================== */
 
 hr {
 
-    margin-top: 1rem;
+    margin-top: 20px;
 
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
 
+    border-color: #2E3A52;
+
+}
+
+/* ===========================================
+   Metric Numbers
+=========================================== */
+
+div[data-testid="stMetricValue"] {
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+}
+
+/* ===========================================
+   Metric Labels
+=========================================== */
+
+div[data-testid="stMetricLabel"] {
+
+    font-size: 15px;
+
+}
+
+/* ===========================================
+   Expander
+=========================================== */
+
+details {
+
+    border-radius: 12px;
+
+}
+
+/* ===========================================
+   Search Box
+=========================================== */
+
+input {
+
+    border-radius: 12px !important;
+
+}
+
+/* ===========================================
+   Footer
+=========================================== */
+
+footer {
+
+    visibility: hidden;
+
+}
+
+/* ===========================================
+   Scrollbar
+=========================================== */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #334155;
+
+    border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #475569;
+
+}
+
+/* Card hover effect */
+div[data-testid="stVerticalBlockBorderWrapper"]{
+    transition: all 0.25s ease;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:hover{
+    transform: translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+/* Better chat spacing */
+div[data-testid="stChatMessage"]{
+    margin-bottom:15px;
+}
+
+/* Rounded expanders */
+details{
+    border-radius:12px;
+    overflow:hidden;
 }

@@ -1,5 +1,4 @@
 import streamlit as st
-
 from api import get_dashboard
 
 
@@ -8,27 +7,46 @@ def render_dashboard():
     response = get_dashboard()
 
     if response is None:
-        st.warning("Backend Offline")
+        st.error("❌ Unable to connect to backend.")
         return
 
     if response.status_code != 200:
+        st.error("❌ Unable to load dashboard.")
         return
 
     data = response.json()
 
-    c1, c2, c3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
 
-    c1.metric(
-        "📄 Documents",
-        data["documents"]
-    )
+    with col1:
+        st.metric(
+            "📄 Documents",
+            data.get("documents", 0)
+        )
 
-    c2.metric(
-        "🧠 Chunks",
-        data["chunks"]
-    )
+        st.metric(
+            "📑 Chunks Indexed",
+            data.get("chunks", 0)
+        )
 
-    c3.metric(
-        "⚡ Backend",
-        data["backend"]
-    )
+    with col2:
+        st.metric(
+            "🤖 AI Model",
+            data.get("ai_model", "-")
+        )
+
+        st.metric(
+            "🗄️ Vector DB",
+            data.get("vector_db", "-")
+        )
+
+    with col3:
+        st.metric(
+            "⚡ Backend",
+            data.get("backend", "-")
+        )
+
+        st.metric(
+            "📁 Last Upload",
+            data.get("last_upload", "-")
+        )

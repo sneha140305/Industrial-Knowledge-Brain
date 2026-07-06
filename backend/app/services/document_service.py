@@ -43,10 +43,18 @@ class DocumentService:
 
        documents = self.list_documents()
 
+       last_upload = "None"
+
+       if documents:
+          last_upload = documents[-1]["filename"]
+
        return {
-          "documents": len(documents),
-          "chunks": vector_store.get_stats()["chunks"],
-        "backend": "Online"
+        "documents": len(documents),
+        "chunks": vector_store.get_stats()["chunks"],
+        "backend": "Online",
+        "ai_model": "Gemini 2.5 Flash",
+        "vector_db": "ChromaDB",
+        "last_upload": last_upload
     }
 
 

@@ -15,26 +15,55 @@ class ChatService:
 
         documents = results["documents"][0]
         metadatas = results["metadatas"][0]
+        distances = results["distances"][0]
 
+        # Build sources with confidence and evidence
+        sources = []
+
+        for doc, meta, distance in zip(
+            documents,
+            metadatas,
+            distances
+        ):
+
+            # Simple confidence mapping
+            if distance < 0.30:
+                confidence = 95
+            elif distance < 0.50:
+                confidence = 85
+            elif distance < 0.70:
+                confidence = 70
+            else:
+                confidence = 55
+
+            sources.append(
+                {
+                    "filename": meta["filename"],
+                    "chunk": meta["chunk"],
+                    "confidence": confidence,
+                    "evidence": doc[:350] + "..."
+                }
+            )
+
+        # Build context for Gemini
         context = "\n\n".join(documents)
 
         prompt = f"""
 You are an Industrial Knowledge Assistant.
 
 Role:
-- You help engineers, technicians, operators, and students understand industrial documents.
-- Your answers must be based ONLY on the retrieved context.
-- Never invent information.
-- If the answer is not available in the context, say:
-  "I couldn't find that information in the uploaded documents."
+- Help engineers, technicians, operators, and students understand industrial documents.
+- Answer ONLY using the retrieved context.
+- Never make up information.
+- If the answer is not available, reply:
+'I couldn't find that information in the uploaded documents.'
 
 Instructions:
-- Give a clear and concise answer.
+- Be clear and concise.
 - Use bullet points whenever appropriate.
-- Mention safety precautions if they are present.
-- If procedures are involved, explain them step by step.
-- Do not use external knowledge.
-- Do not guess.
+- Mention safety precautions if present.
+- Explain procedures step by step.
+- Do not use outside knowledge.
 
 Context:
 {context}
@@ -43,26 +72,14 @@ Question:
 {question}
 
 Answer:
-""" 
+"""
 
         answer = gemini_service.generate_response(prompt)
-        
-        formatted_sources = []
-
-        for source in metadatas:
-            formatted_sources.append(
-                {
-                     "document": source["filename"],
-                     "chunk": source["chunk"]
-                }
-        )
 
         return {
             "success": True,
             "answer": answer,
-            "sources": formatted_sources
+            "sources": sources
         }
-       
-
 
 chat_service = ChatService()

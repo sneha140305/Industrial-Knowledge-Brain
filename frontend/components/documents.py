@@ -1,58 +1,83 @@
 import streamlit as st
-
 from api import get_documents, delete_document
 
 
 def render_documents():
 
-    st.subheader("📁 Uploaded Documents")
+    st.subheader("📁 Document Library")
+
+    search = st.text_input(
+        "",
+        placeholder="🔍 Search document..."
+    )
 
     response = get_documents()
 
     if response is None:
-        st.error("❌ Backend is not reachable.")
+
+        st.error("Backend Offline")
+
         return
 
     if response.status_code != 200:
+
         st.error("Unable to fetch documents.")
+
         return
 
     documents = response.json()
 
+    if search:
+
+        documents = [
+            d for d in documents
+            if search.lower() in d["filename"].lower()
+        ]
+
     if not documents:
-        st.info("📭 No documents uploaded yet.")
+
+        st.info("No documents uploaded.")
+
         return
 
-    st.caption(f"Total Documents: {len(documents)}")
+    st.caption(f"{len(documents)} document(s)")
 
     for document in documents:
 
-        filename = document["filename"]
+        with st.container(border=True):
 
-        col1, col2 = st.columns([5, 1])
+            st.markdown(
+                f"**📄 {document['filename']}**"
+            )
 
-        with col1:
-            st.markdown(f"📄 **{filename}**")
+            col1, col2 = st.columns([3,1])
 
-        with col2:
+            with col1:
 
-            if st.button(
-                "🗑️",
-                key=f"delete_{filename}",
-                help="Delete Document"
-            ):
+                st.success("Indexed")
 
-                delete_response = delete_document(filename)
+            with col2:
 
-                if delete_response is None:
-                    st.error("Backend unavailable.")
-                    return
+                if st.button(
+                    "🗑",
+                    key=document["filename"],
+                    use_container_width=True
+                ):
 
-                if delete_response.status_code == 200:
-                    st.success(f"{filename} deleted successfully.")
-                    st.rerun()
+                    response = delete_document(
+                        document["filename"]
+                    )
 
-                else:
-                    st.error(delete_response.text)
+                    if response is None:
 
-        st.divider()
+                        st.error("Backend Offline")
+
+                    elif response.status_code == 200:
+
+                        st.toast("Deleted")
+
+                        st.rerun()
+
+                    else:
+
+                        st.error(response.text)

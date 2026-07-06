@@ -1,72 +1,67 @@
 import streamlit as st
-
 from api import upload_pdf
 
 
 def render_upload():
 
-    st.subheader("📄 Upload Document")
+    st.subheader("📤 Upload Document")
+
+    st.caption(
+        "Upload industrial manuals, SOPs, maintenance guides or safety PDFs."
+    )
 
     uploaded_file = st.file_uploader(
-        "Choose a PDF",
+        "",
         type=["pdf"]
     )
 
-    if uploaded_file is None:
-        return
+    if uploaded_file:
 
-    # File information
-    file_size = uploaded_file.size / 1024
+        st.success(f"📄 {uploaded_file.name}")
 
-    st.info(
-        f"""
-**File:** {uploaded_file.name}
+        size = uploaded_file.size / (1024 * 1024)
 
-**Size:** {file_size:.2f} KB
-"""
-    )
+        st.caption(f"Size: {size:.2f} MB")
 
-    if st.button(
-        "🚀 Upload & Index",
-        use_container_width=True
-    ):
+        if st.button(
+            "⬆ Upload & Index",
+            use_container_width=True
+        ):
 
-        with st.spinner("📚 Reading PDF and creating embeddings..."):
+            with st.spinner("Indexing document..."):
 
-            response = upload_pdf(uploaded_file)
+                response = upload_pdf(uploaded_file)
 
-        if response is None:
-            st.error("❌ Unable to connect to backend.")
-            return
+            if response is None:
 
-        if response.status_code != 200:
-            st.error(response.text)
-            return
+                st.error("Unable to connect to backend.")
 
-        result = response.json()
+                return
 
-        st.success("✅ Document indexed successfully!")
+            if response.status_code != 200:
 
-        c1, c2 = st.columns(2)
+                st.error(response.text)
 
-        with c1:
-            st.metric(
-                "Chunks Created",
-                result["chunks"]
-            )
+                return
 
-        with c2:
-            st.metric(
-                "Status",
-                "Indexed"
-            )
+            result = response.json()
 
-        st.info(
-            f"**Filename:** {result['filename']}"
-        )
+            st.success("✅ Document Indexed Successfully")
 
-        st.balloons()
+            col1, col2 = st.columns(2)
 
-        # Refresh the page so the uploaded
-        # documents list updates automatically
-        st.rerun()
+            with col1:
+
+                st.metric(
+                    "Chunks",
+                    result["chunks"]
+                )
+
+            with col2:
+
+                st.metric(
+                    "Status",
+                    "Ready"
+                )
+
+            st.balloons()

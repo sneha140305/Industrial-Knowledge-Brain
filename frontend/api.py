@@ -62,3 +62,26 @@ def delete_document(filename):
         )
     except requests.RequestException:
         return None
+    
+def compare_documents(file1, file2):
+    try:
+        return requests.post(
+            f"{BACKEND_URL}/compare/",
+            files={
+                "file1": (
+                    file1.name,
+                    file1,
+                    "application/pdf"
+                ),
+
+                "file2": (
+                    file2.name,
+                    file2,
+                    "application/pdf"
+                )
+            },
+            timeout=60
+        )
+    except requests.RequestException:
+
+        return None

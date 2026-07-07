@@ -227,6 +227,28 @@ inspection reports and safety documents.
 
                 st.rerun()
 
+            if st.button(
+               "🛡 Compliance Check",
+               use_container_width=True
+            ):
+                process_question(
+                """
+Analyze this industrial document for compliance.
+
+Check:
+- PPE
+- Safety Warnings
+- Emergency Procedure
+- Lockout/Tagout
+- Fire Safety
+- Maintenance Instructions
+
+Give an overall compliance score.
+"""
+            )
+            st.rerun()
+
+
         # ================================
         # Right Column
         # ================================
@@ -254,6 +276,24 @@ inspection reports and safety documents.
                 )
 
                 st.rerun()
+
+            if st.button(
+                "🧩 Root Cause Analysis",
+                use_container_width=True
+            ):
+                process_question(
+                    """
+
+Perform Root Cause Analysis.
+
+Provide:
+- Possible Causes
+- Evidence
+- Corrective Actions
+- Preventive Actions
+"""
+            )
+            st.rerun()  
 
     st.write("")
 

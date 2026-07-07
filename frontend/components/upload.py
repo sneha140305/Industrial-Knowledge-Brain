@@ -46,6 +46,68 @@ def render_upload():
 
             result = response.json()
 
+            if "entities" in result:
+
+                entities = result["entities"]
+
+                st.divider()
+
+                st.subheader("🧠 Document Intelligence")
+
+                col1, col2 = st.columns(2)
+
+                with col1:
+
+                    st.markdown("### ⚙ Equipment")
+
+                    if entities["equipment"]:
+
+                        for e in entities["equipment"]:
+
+                           st.success(e)
+
+                    else:
+
+                        st.info("None Found")
+
+                    st.markdown("### 🦺 PPE")
+
+                    if entities["ppe"]:
+
+                        for p in entities["ppe"]:
+
+                            st.success(p)
+
+                    else:
+
+                        st.info("None Found")
+
+                with col2:
+
+                    st.markdown("### 📏 Standards")
+
+                    if entities["standards"]:
+
+                        for s in entities["standards"]:
+
+                            st.success(s)
+
+                    else:
+
+                        st.info("None Found")
+
+                    st.markdown("### 🔧 Maintenance")
+
+                    if entities["maintenance"]:
+
+                        for m in entities["maintenance"]:
+
+                            st.success(m)
+
+                    else:
+
+                        st.info("None Found")
+                        
             st.success("✅ Document Indexed Successfully")
 
             col1, col2 = st.columns(2)

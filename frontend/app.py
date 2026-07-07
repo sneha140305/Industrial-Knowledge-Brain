@@ -111,7 +111,6 @@ with right:
 
         render_chat()
 
-
 st.divider()
 
 

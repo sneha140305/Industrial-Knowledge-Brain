@@ -42,6 +42,7 @@ class DocumentService:
     def get_dashboard_stats(self):
 
        documents = self.list_documents()
+       stats = vector_store.get_stats()
 
        last_upload = "None"
 
@@ -50,7 +51,10 @@ class DocumentService:
 
        return {
         "documents": len(documents),
-        "chunks": vector_store.get_stats()["chunks"],
+        "chunks": stats["chunks"],
+        "equipment": stats.get("equipment", 0),
+        "standards": stats.get("standards", 0),
+        "risk_documents": stats.get("risk_documents", 0),
         "backend": "Online",
         "ai_model": "Gemini 2.5 Flash",
         "vector_db": "ChromaDB",

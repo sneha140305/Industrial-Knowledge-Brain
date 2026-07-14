@@ -1,50 +1,91 @@
 import streamlit as st
 
-from api import compare_documents
+from api import (
+    compare_documents,
+    get_documents
+)
 
 
 def render_comparison():
 
-    st.header("📑 AI Document Comparison")
+    st.subheader("📑 Compare Documents")
 
-    file1 = st.file_uploader(
-        "Document A",
-        type=["pdf"],
-        key="compare1"
-    )
+    response = get_documents()
 
-    file2 = st.file_uploader(
-        "Document B",
-        type=["pdf"],
-        key="compare2"
-    )
+    if response is None:
+        st.error("Unable to connect to backend.")
+        return
 
-    if file1 and file2:
+    if response.status_code != 200:
+        st.error("Unable to fetch documents.")
+        return
 
-        if st.button(
-            "⚖ Compare Documents",
-            use_container_width=True
+    docs = response.json()
+
+    if len(docs) < 2:
+        st.info("Upload at least two documents.")
+        return
+
+    filenames = [
+        doc["filename"]
+        for doc in docs
+    ]
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        document1 = st.selectbox(
+            "Document 1",
+            filenames
+        )
+
+    with col2:
+
+        remaining = [
+            f for f in filenames
+            if f != document1
+        ]
+
+        document2 = st.selectbox(
+            "Document 2",
+            remaining
+        )
+
+    if st.button(
+        "🔍 Compare Documents",
+        use_container_width=True
+    ):
+
+        with st.spinner(
+            "Comparing documents..."
         ):
 
-            with st.spinner("Comparing..."):
-
-                response = compare_documents(
-                    file1,
-                    file2
-                )
-
-            if response is None:
-
-                st.error("Backend Offline")
-
-                return
-
-            if response.status_code != 200:
-
-                st.error(response.text)
-
-                return
-
-            st.markdown(
-                response.json()["comparison"]
+            response = compare_documents(
+                document1,
+                document2
             )
+
+        if response is None:
+
+            st.error(
+                "Unable to connect to backend."
+            )
+
+            return
+
+        if response.status_code != 200:
+
+            st.error(response.text)
+
+            return
+
+        result = response.json()
+
+        st.success(
+            "Comparison Complete"
+        )
+
+        st.markdown(
+            result["summary"]
+        )

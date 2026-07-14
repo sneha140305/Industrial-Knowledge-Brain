@@ -5,6 +5,7 @@ from components.dashboard import render_dashboard
 from components.upload import render_upload
 from components.chat import render_chat
 from components.documents import render_documents
+from components.comparison import render_comparison
 
 
 # -----------------------------
@@ -100,6 +101,10 @@ with left:
 
         render_documents()
 
+    st.write("")
+
+    with st.container(border=True):
+        render_comparison()
 
 # =============================
 # RIGHT PANEL

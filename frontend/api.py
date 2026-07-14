@@ -85,3 +85,19 @@ def compare_documents(file1, file2):
     except requests.RequestException:
 
         return None
+   
+def compare_documents(
+    document1,
+    document2
+):
+    try:
+        return requests.post(
+            f"{BACKEND_URL}/comparison/",
+            json={
+                "document1": document1,
+                "document2": document2
+            },
+            timeout=TIMEOUT
+        )
+    except requests.RequestException:
+        return None

@@ -11,8 +11,10 @@ def render_upload():
     )
 
     uploaded_file = st.file_uploader(
-        "",
-        type=["pdf"]
+        "Upload PDF",
+        type=["pdf"],
+        key="upload_pdf",
+        label_visibility="collapsed"
     )
 
     if uploaded_file:

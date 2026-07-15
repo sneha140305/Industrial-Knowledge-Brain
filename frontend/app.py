@@ -6,7 +6,7 @@ from components.upload import render_upload
 from components.chat import render_chat
 from components.documents import render_documents
 from components.comparison import render_comparison
-
+from components.knowledge_graph import render_knowledge_graph
 
 # -----------------------------
 # Page Config
@@ -105,6 +105,12 @@ with left:
 
     with st.container(border=True):
         render_comparison()
+
+    st.write("")
+
+    with st.container(border=True):
+        render_knowledge_graph()
+
 
 # =============================
 # RIGHT PANEL

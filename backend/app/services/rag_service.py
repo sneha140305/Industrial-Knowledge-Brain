@@ -3,7 +3,7 @@ from app.services.chunk_service import chunk_service
 from app.services.embedding_service import embedding_service
 from app.services.vector_store import vector_store
 from app.services.entity_service import entity_service
-
+from app.services.graph_service import graph_service
 
 class RAGService:
     """
@@ -27,7 +27,10 @@ class RAGService:
         # -----------------------------------
 
         entities = entity_service.extract_entities(text)
-
+        graph_service.add_document_entities(
+            filename,
+            entities
+     )
         # -----------------------------------
         # Split into Chunks
         # -----------------------------------

@@ -1,106 +1,192 @@
 # 🤖 Industrial Knowledge Brain
 
-> AI-powered Industrial Document Assistant using **RAG (Retrieval-Augmented Generation)**, **Gemini AI**, **ChromaDB**, **FastAPI**, and **Streamlit**.
+> AI-Powered Industrial Knowledge Intelligence Platform for Industrial Documents
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Frontend-red)
-![Gemini](https://img.shields.io/badge/Gemini-2.5%20Flash-orange)
+![Gemini](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-orange)
 ![ChromaDB](https://img.shields.io/badge/VectorDB-ChromaDB-purple)
+![OCR](https://img.shields.io/badge/OCR-Tesseract-success)
 
 ---
 
-# 📖 Overview
+# 📌 Problem Statement
 
-Industrial Knowledge Brain is an AI-powered assistant that helps engineers, technicians, operators, and students interact with industrial documents through natural language.
+Industrial organizations manage thousands of maintenance manuals, SOPs, inspection reports, safety procedures, engineering documents, and operational records.
 
-Instead of manually searching through hundreds of pages of manuals, SOPs, maintenance guides, or safety documents, users can simply ask questions and receive accurate, context-aware answers.
+Finding relevant information quickly is difficult because documents are:
 
-The application uses **Retrieval-Augmented Generation (RAG)** to retrieve the most relevant document chunks before generating responses with **Google Gemini AI**.
+- Scattered across different formats
+- Unstructured
+- Difficult to search
+- Time-consuming to analyze manually
+
+Industrial Knowledge Brain transforms these documents into an AI-powered searchable knowledge base.
 
 ---
 
 # 🚀 Features
 
-### 📄 PDF Upload
-- Upload industrial manuals
-- Upload SOPs
-- Upload maintenance guides
-- Automatic document indexing
+## 📄 Intelligent PDF Upload
 
-### 🔍 AI Question Answering
-- Ask questions in natural language
-- Context-aware responses
-- RAG-powered retrieval
-- Gemini AI generated answers
+- Upload industrial documents
+- Automatic text extraction
+- Automatic indexing
 
-### 📚 Source References
-- Displays retrieved document chunks
-- Evidence for every answer
-- Explainable AI responses
+---
 
-### ⚡ Quick AI Actions
-- Summarize Document
-- Safety Analysis
+## 🔍 OCR Support
+
+Supports:
+
+- Scanned PDFs
+- Image-based PDFs
+
+Uses:
+
+- Tesseract OCR
+- pdf2image
+
+---
+
+## 🤖 AI Assistant
+
+Powered by:
+
+- Google Gemini 2.5 Flash
+- Retrieval-Augmented Generation (RAG)
+
+Capabilities:
+
+- Question Answering
+- Document Summarization
 - Maintenance Checklist
+- Safety Analysis
 - Procedure Explanation
 
-### 📁 Document Management
-- View uploaded documents
-- Search documents
-- Delete documents
-- Automatic vector cleanup
+---
 
-### 📊 Dashboard
+## 📚 Source Citations
+
+Every AI response includes:
+
+- Source document
+- Chunk number
+- Evidence
+
+---
+
+## 📑 Document Comparison
+
+Compare two industrial documents and identify:
+
+- Similarities
+- Differences
+- Maintenance procedures
+- Safety instructions
+- Compliance requirements
+- Recommendations
+
+---
+
+## 🕸 Knowledge Graph
+
+Interactive visualization showing relationships between:
+
+- Documents
+- Maintenance
+- Safety
+- Inspection
+- PPE
+
+---
+
+## 📊 Dashboard
+
+Displays:
+
 - Total Documents
 - Indexed Chunks
 - AI Model
 - Vector Database
 - Backend Status
+- Last Uploaded Document
 
 ---
 
-# 🏗️ System Architecture
+## 📁 Document Library
+
+- Search documents
+- Delete documents
+- Manage uploaded files
+
+---
+
+# 🏗 System Architecture
 
 ```
-                Streamlit Frontend
-                        │
-                        ▼
-                  FastAPI Backend
-                        │
-        ┌───────────────┼───────────────┐
-        ▼               ▼               ▼
-   PDF Parser      Gemini API      ChromaDB
-   (PyPDF)        (LLM Response)  (Embeddings)
-        │
-        ▼
-   AI-Powered Answers
+                User
+                  │
+                  ▼
+        Streamlit Frontend
+                  │
+                  ▼
+          FastAPI Backend
+      ┌─────────┼──────────┐
+      ▼         ▼          ▼
+ PDF Upload   OCR     Entity Extraction
+      │
+      ▼
+ Text Chunking
+      │
+      ▼
+ Gemini Embeddings
+      │
+      ▼
+     ChromaDB
+      │
+      ▼
+ Semantic Search
+      │
+      ▼
+ Gemini 2.5 Flash
+      │
+      ▼
+ AI Response + Sources
 ```
 
 ---
 
-# 🛠️ Tech Stack
+# 🛠 Tech Stack
 
 ## Frontend
+
 - Streamlit
 
 ## Backend
+
 - FastAPI
-- Uvicorn
 
 ## AI
+
 - Google Gemini 2.5 Flash
 
+## Embeddings
+
+- Gemini Embedding API
+
 ## Vector Database
+
 - ChromaDB
 
-## Embedding Model
-- Gemini Embeddings
+## OCR
 
-## PDF Processing
-- PyPDF
+- Tesseract OCR
+- pdf2image
 
 ## Language
+
 - Python
 
 ---
@@ -108,29 +194,36 @@ The application uses **Retrieval-Augmented Generation (RAG)** to retrieve the mo
 # 📂 Project Structure
 
 ```
-Industrial-Knowledge-Brain
+Industrial-Knowledge-Brain/
+
+backend/
 │
-├── backend
-│   ├── api
-│   ├── services
-│   ├── core
-│   ├── models
-│   └── uploads
+├── app/
+│   ├── api/
+│   ├── services/
+│   ├── schemas/
+│   ├── core/
+│   └── main.py
 │
-├── frontend
-│   ├── components
-│   ├── styles
-│   ├── api.py
-│   └── app.py
+frontend/
 │
-├── chroma_db
-├── README.md
-└── requirements.txt
+├── components/
+├── styles/
+├── api.py
+└── app.py
+
+uploads/
+
+chroma_db/
+
+README.md
+
+requirements.txt
 ```
 
 ---
 
-# ⚙️ Installation
+# ⚙ Installation
 
 ## Clone Repository
 
@@ -138,6 +231,28 @@ Industrial-Knowledge-Brain
 git clone https://github.com/sneha140305/Industrial-Knowledge-Brain.git
 
 cd Industrial-Knowledge-Brain
+```
+
+---
+
+## Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+Activate
+
+Windows
+
+```bash
+venv\Scripts\activate
+```
+
+Linux/Mac
+
+```bash
+source venv/bin/activate
 ```
 
 ---
@@ -150,7 +265,7 @@ pip install -r requirements.txt
 
 ---
 
-## Start Backend
+# ▶ Run Backend
 
 ```bash
 cd backend
@@ -158,15 +273,21 @@ cd backend
 uvicorn app.main:app --reload
 ```
 
-Backend:
+Backend
 
 ```
-http://localhost:8000
+http://127.0.0.1:8000
+```
+
+Swagger
+
+```
+http://127.0.0.1:8000/docs
 ```
 
 ---
 
-## Start Frontend
+# ▶ Run Frontend
 
 ```bash
 cd frontend
@@ -174,7 +295,7 @@ cd frontend
 streamlit run app.py
 ```
 
-Frontend:
+Frontend
 
 ```
 http://localhost:8501
@@ -182,81 +303,71 @@ http://localhost:8501
 
 ---
 
-# 💡 How It Works
-
-1. Upload PDF documents.
-2. Extract text from the document.
-3. Split text into chunks.
-4. Generate embeddings.
-5. Store embeddings in ChromaDB.
-6. User asks a question.
-7. Retrieve relevant chunks.
-8. Send context + question to Gemini.
-9. Generate accurate answer.
-10. Display answer with source evidence.
-
----
-
-# 🎯 Example Questions
-
-- Summarize this document.
-- What is this document about?
-- Explain the maintenance procedure.
-- List all safety precautions.
-- What PPE is required?
-- Which equipment is discussed?
-- Generate a maintenance checklist.
-
----
-
 # 📸 Screenshots
 
-### Dashboard
-
-![alt text](<Screenshot 2026-07-06 164559.png>)
----
-
-### AI Assistant
-![alt text](<Screenshot 2026-07-06 230438.png>)
-
-### Upload Documents
-![alt text](<Screenshot 2026-07-06 164957.png>)
-
-### Chat with Sources
-![alt text](<Screenshot 2026-07-06 231521.png>)
-
-# 🔮 Future Improvements
-
-- Multi-document chat
-- OCR support for scanned PDFs
-- User authentication
-- Role-based access
-- Voice interaction
-- Multi-language support
-- Cloud deployment
-- Citation highlighting
+## Dashboard
+![Dashboard](images/dashboard.png)
 
 ---
 
-# 👨‍💻 Team
-
-**Team Name:** *(Add Your Team Name)*
-
-### Members
-
-- Sneha Choudhary
-- Stuti Jain
+## AI Assistant
+![ai assistant](images/ai_assistant.png)
 
 ---
 
-# ⭐ Why This Project?
-
-Industrial professionals spend significant time searching through lengthy manuals and SOPs.
-
-Industrial Knowledge Brain simplifies this process by combining **RAG**, **Vector Search**, and **Generative AI** to provide instant, explainable, and context-aware answers directly from uploaded industrial documents.
+## Document Upload
+![Upload](images/upload.png)
 
 ---
 
-# 📄 License
+## Document Comparison
+![Comparison](images/compare.png)
 
-This project is developed for educational and hackathon purposes.
+---
+
+## Knowledge Graph
+![Knowledge Graph](images/knowledge_graph.png)
+
+---
+
+# 🎥 Demo Workflow
+
+1. Upload industrial document
+
+2. OCR extracts scanned text
+
+3. ChromaDB indexes chunks
+
+4. Ask AI questions
+
+5. Compare documents
+
+6. View Knowledge Graph
+
+7. Review source evidence
+
+---
+
+# 📈 Future Scope
+
+- Neo4j Knowledge Graph
+- IoT Sensor Integration
+- Predictive Maintenance
+- Root Cause Analysis
+- Regulatory Compliance Automation
+- Mobile Application
+- Multi-language Support
+
+---
+
+# 👩‍💻 Developed By
+
+**Sneha Choudhary**
+
+GitHub
+
+https://github.com/sneha140305
+
+---
+
+# ⭐ If you found this project useful, please consider giving it a star!

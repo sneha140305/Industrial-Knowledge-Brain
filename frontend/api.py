@@ -1,7 +1,7 @@
 import requests
 from config import BACKEND_URL
 
-TIMEOUT = 30
+TIMEOUT = 300
 
 
 def upload_pdf(file):
@@ -50,8 +50,9 @@ def get_dashboard():
             f"{BACKEND_URL}/documents/dashboard",
             timeout=TIMEOUT
         )
-    except requests.RequestException:
-        return None
+    except requests.RequestException as e:
+        print("Dashboard Error:", e)
+        raise
 
 
 def delete_document(filename):
